@@ -7,6 +7,14 @@
     {% if user.is_authenticated %}
 
         Hi {{ user.username }}!
+
+        {% if user.role == "warmupper" %}
+
+            <a href="{% url 'w-assigned-email-addresses' %}">Assigned Email Addresses</a>
+            <a href="{% url 'w-email-engagement-and-renumeration' %}">Email Engagement & Renumeration</a>
+
+        {% endif %}
+
         <p><a href="{% url 'logout' %}">Log Out</a></p>
 
     {% else %}
