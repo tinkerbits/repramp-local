@@ -13,6 +13,18 @@
             <a href="{% url 'w-assigned-email-addresses' %}">Assigned Email Addresses</a>
             <a href="{% url 'w-email-engagement-and-renumeration' %}">Email Engagement & Renumeration</a>
 
+        {% elif user.role == "manager" %}
+
+            <a href="{% url 'm-register-new-warmupper' %}">Register New Warmupper</a>
+            <a href="{% url 'm-assign-email-addresses-to-warmupper' %}">Assign Email Addresses To Warmupper</a>
+            <a href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
+            <a href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
+
+
+        {% elif user.role == "sender" %}
+
+            <a href="{% url 's-create-email-list' %}">Create Email List</a>
+
         {% endif %}
 
         <p><a href="{% url 'logout' %}">Log Out</a></p>
@@ -21,8 +33,6 @@
 
         <p>You are not logged in.</p>
         <a href="{% url 'login' %}">Log In</a><br>
-        <a href="{% url 'register' %}">Sign Up</a>
-
     {% endif %}
 
 {% endblock content %}
