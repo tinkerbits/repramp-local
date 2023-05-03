@@ -2,11 +2,11 @@ from django.urls import reverse_lazy
 
 from django.views.generic import CreateView, TemplateView
 
-from users.forms import CustomUserCreationForm
+from .forms import RegisterNewUserForm
 
 
 class RegisterNewWarmupperView(CreateView):
-    form_class = CustomUserCreationForm
+    form_class = RegisterNewUserForm
     success_url = reverse_lazy('gateway')
     template_name = 'managers/register-new-warmupper.html'
 
