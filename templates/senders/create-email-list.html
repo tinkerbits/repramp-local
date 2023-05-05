@@ -5,8 +5,27 @@
 {% block content %}
 
     <form method="post">
-        {{ form.as_p }}
         {% csrf_token %}
+
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }} {{ field }}
+            {% if field.id_for_label == 'id_gmail_count' %}
+                / {{ email_counts.gmail_count }}
+            {% elif field.id_for_label == 'id_microsoft_count' %}
+                / {{ email_counts.microsoft_count }}
+            {% elif field.id_for_label == 'id_yahoo_count' %}
+                / {{ email_counts.yahoo_count }}
+            {% elif field.id_for_label == 'id_other_count' %}
+                / {{ email_counts.other_count }}
+            {% endif %}
+            
+            {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
         <button type="submit">Create</button>
     </form>
 
