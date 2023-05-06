@@ -10,11 +10,12 @@ class EmailList(models.Model):
     last_modified = models.DateTimeField(auto_now = True)
     name = models.CharField(max_length=100)
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="sender_emaillists")
-    gmail_count = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(limit_value=get_email_address_count()['gmail_count'])])
-    microsoft_count = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(limit_value=get_email_address_count()['microsoft_count'])])
-    yahoo_count = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(limit_value=get_email_address_count()['yahoo_count'])])
-    other_count = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(limit_value=get_email_address_count()['other_count'])])
+    gmail_count = models.PositiveSmallIntegerField(default=0)
+    microsoft_count = models.PositiveSmallIntegerField(default=0)
+    yahoo_count = models.PositiveSmallIntegerField(default=0)
+    other_count = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.name
+    
     
