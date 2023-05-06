@@ -25,6 +25,12 @@
 
             <a href="{% url 's-create-email-list' %}">Create Email List</a>
 
+            {% for email_list in email_lists %}
+                {{ email_list }}
+            {% endfor %}
+
+
+
         {% endif %}
 
         <p><a href="{% url 'logout' %}">Log Out</a></p>

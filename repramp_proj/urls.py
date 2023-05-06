@@ -24,5 +24,6 @@ urlpatterns = [
     path("", include("warmuppers.urls")),
     path("", include("managers.urls")),
     path("", include("senders.urls")),
-    path("", TemplateView.as_view(template_name="gateway.html"), name="gateway"),
+    path("", include("users.urls")),
+    #path("", TemplateView.as_view(template_name="gateway.html"), name="gateway"),
 ]

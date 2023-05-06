@@ -131,3 +131,6 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_REDIRECT_URL = 'gateway'
 LOGOUT_REDIRECT_URL = 'gateway'
+
+# CUSTOM Static Files Setting
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

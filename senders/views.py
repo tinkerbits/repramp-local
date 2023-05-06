@@ -1,8 +1,10 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from .forms import EmailListCreationForm
 from django.urls import reverse_lazy
 from users.models import CustomUser
 from .utils import get_email_address_count
+
+from .models import EmailList
 
 
 
@@ -19,5 +21,4 @@ class CreateEmailListView(CreateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super().form_valid(form)
-    
     
