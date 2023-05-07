@@ -24,10 +24,12 @@
         {% elif user.role == "sender" %}
 
             <a href="{% url 's-create-email-list' %}">Create Email List</a>
-
-            {% for email_list in email_lists %}
-                {{ email_list }}
+            
+            <li>
+            {% for email_list in this_users_email_lists %}
+                <ul>{{ email_list }}</ul>
             {% endfor %}
+            </li>
 
 
 

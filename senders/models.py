@@ -2,7 +2,6 @@
 from django.db import models
 from users.models import CustomUser
 from .utils import get_email_address_count
-from django.core.validators import MaxValueValidator
 
 
 class EmailList(models.Model):
@@ -18,4 +17,5 @@ class EmailList(models.Model):
     def __str__(self):
         return self.name
     
+
     
