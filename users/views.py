@@ -1,6 +1,9 @@
+import logging
+
 from django.views.generic import TemplateView
 
 from senders.models import EmailList
+from managers.models import ManagerActions
 
 class GatewayView(TemplateView):
     template_name = 'gateway.html'
@@ -9,10 +12,18 @@ class GatewayView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["this_users_email_lists"] =  EmailList.objects.filter(sender=self.request.user.id)
-        context["pending_email_lists"] = EmailList.objects.filter()
+        context["manager_actions"] = ManagerActions.objects.all()
         return context
 
-    
+    def get(self,request, *args, **kwargs):
+        query = request.GET.get('m1-actionid')
 
+        if query:
+            obj = ManagerActions.objects.get(id=query)
+            obj.comment = request.GET.get('m1-comment')
+            obj.save()
+            return super().get(request, *args, **kwargs)
 
+        else:
+            return super().get(request, *args, **kwargs)
 

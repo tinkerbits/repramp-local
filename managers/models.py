@@ -13,5 +13,7 @@ class ManagerActions(models.Model):
     ('rejected', 'rejected'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='todo')
-    comments = models.TextField(null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.action

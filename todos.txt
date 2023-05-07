@@ -1,0 +1,4 @@
+1. Need to present two buttons on the manager gateway: accept and reject. When either of them is clicked, the an update should happen to the django model in the backend without redirecting the user to another page.
+This will require javascript & fetch.
+
+2. In addition we need to allow the manager to add a comment that again has to get stored onto the model without causing a page redirect.
