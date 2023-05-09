@@ -1,15 +1,11 @@
+let commentsubmitbuttons = document.querySelectorAll('button.commentsubmitbutton');
 
+for(let commentsubmitbutton of commentsubmitbuttons){
 
-let commentsubmitbutton = document.querySelector('button#commentsubmitbutton');
-commentsubmitbutton.addEventListener('click', event => addComment(event));
+  commentsubmitbutton.addEventListener('click', event => {
 
-let commentfield = document.querySelector(`input#commentfield[data-action-id="${commentsubmitbutton.attributes.getNamedItem('data-action-id').value}"]`);
+    let commentfield = document.querySelector(`input.commentfield[data-action-id="${event.target.dataset.actionId}"]`);
+    fetch(`http://localhost:8000/?m1-actionid=${event.target.dataset.actionId}&m1-comment=${commentfield.value}`);
 
-function addComment(ev) {
-
-  let url = `http://localhost:8000/?m1-actionid=${ev.target.dataset.actionId}&m1-comment=${commentfield.value}`;
-  fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+  })
 }

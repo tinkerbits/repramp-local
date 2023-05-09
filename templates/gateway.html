@@ -23,9 +23,8 @@
             <ul>
                 {% for action in manager_actions %}
                     <li>Approve or reject <i>{{ action.action_details.name }}</i> for {{ action.action_details.sender.username }}.</li>
-                    <input type="text" placeholder="comment" name="m1" id="commentfield" data-action-id={{action.id}} value="{{action.comment}}">
-                    {{action.comment}}
-                    <button method="submit" id="commentsubmitbutton" data-action-id={{action.id}}>Submit</button>
+                    <input type="text" placeholder="comment" name="m1" class="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}">
+                    <button method="submit" class="commentsubmitbutton" data-action-id={{action.id}}>Submit</button>
                     <br><br>
                 {% endfor %}
             </ul>
