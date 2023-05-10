@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Email Addresses{% endblock title %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Submit</button>
+</form>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{upload_email_form.as_p}}
+    <button type="submit">Submit</button>
+</form>
+
+
+
+
+
+
+{% endblock content %}
