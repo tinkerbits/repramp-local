@@ -1,9 +1,11 @@
+import csv
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 from django.http import HttpResponseRedirect
 
 
 from .forms import RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
+from warmuppers.models import EmailAddress
 
 
 class RegisterNewWarmupperView(CreateView):
@@ -26,11 +28,13 @@ class AddEmailAddresses(CreateView):
     form_class = AddEmailAddressForm
     second_form_class = UploadEmailAddressesForm
 
+    # Adds the second_form_flass to the context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["upload_email_form"] = self.second_form_class()
         return context
     
+    # Intercepts the form data from both forms and then validates it with form.is_valid()
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         upload_form = self.second_form_class(request.POST, request.FILES)
@@ -39,7 +43,14 @@ class AddEmailAddresses(CreateView):
             form.save()
 
         if upload_form.is_valid():
-            upload_form.save()
+            ###process uploaded csv
+            uploaded_file = upload_form.cleaned_data['file']
+            reader = csv.reader(uploaded_file.read().decode('utf-8').splitlines())
+
+            for row in reader:
+                obj = EmailAddress(email=row[0], mailbox_provider=row[1])
+                obj.save()
+        
 
         return HttpResponseRedirect(self.success_url)
 
