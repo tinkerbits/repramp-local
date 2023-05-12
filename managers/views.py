@@ -1,17 +1,23 @@
 import csv
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView
 from django.http import HttpResponseRedirect
 
 
 from .forms import RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
 from warmuppers.models import EmailAddress
+from users.models import CustomUser
 
 
-class RegisterNewWarmupperView(CreateView):
+class ManageUsersView(ListView):
+    template_name = 'managers/manage-users.html'
+    model = CustomUser
+
+class RegisterNewUserView(CreateView):
+    template_name = 'managers/register-new-user.html'
     form_class = RegisterNewUserForm
     success_url = reverse_lazy('gateway')
-    template_name = 'managers/register-new-warmupper.html'
+
 
 class AssignEmailAddressesToWarmupperView(TemplateView):
     template_name = 'managers/assign-email-addresses-to-warmupper.html'
