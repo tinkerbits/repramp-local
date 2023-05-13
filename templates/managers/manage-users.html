@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% load manager_tags %}
+
+
 {% block title %}Manage Users{% endblock title %}
 
 {% block content %}
@@ -12,12 +15,25 @@
     {% csrf_token %}
     <ul>
         {% for user_form in user_forms %}
-            <li>
-                {{ user_form.as_p }}
-            </li>
+            {% for field in user_form %}
+            <p>
+                {{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}
+                
+                {% for error in field.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </p>
+            {% endfor %}
+
+
+            <button type="submit">Submit</button>
+
         {% endfor %}
+
     </ul>
-    <button type="submit">Save</button>
 </form>
+
+
+
 
 {% endblock content %}

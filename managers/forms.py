@@ -4,11 +4,18 @@ from warmuppers.models import EmailAddress
 from users.models import CustomUser
 
 class ManageUsersForm(forms.ModelForm):
+
+    ROLE_CHOICES = (
+        ('warmupper', 'warmupper'),
+        ('sender', 'sender'),
+    )
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
+
+
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'first_name', 'last_name', 'role', 'privilege']
         widgets = {
-            'role': forms.Select(choices=CustomUser.ROLE_CHOICES),
             'privilege': forms.Select(choices=CustomUser.PRIVILEGE_CHOICES),
         }
 
