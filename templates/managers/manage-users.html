@@ -8,6 +8,16 @@
 <a href="{% url 'm-register-new-user' %}">Register New User</a>
 
 
-{{object_list}}
+<form method="post">
+    {% csrf_token %}
+    <ul>
+        {% for user_form in user_forms %}
+            <li>
+                {{ user_form.as_p }}
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit">Save</button>
+</form>
 
 {% endblock content %}

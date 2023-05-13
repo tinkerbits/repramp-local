@@ -1,10 +1,11 @@
 import csv
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, ListView
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
-
-from .forms import RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
+from .forms import ManageUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
 from warmuppers.models import EmailAddress
 from users.models import CustomUser
 
@@ -12,6 +13,18 @@ from users.models import CustomUser
 class ManageUsersView(ListView):
     template_name = 'managers/manage-users.html'
     model = CustomUser
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_forms = []
+        warmuppers_or_senders = CustomUser.objects.filter(Q(role="warmupper") | Q(role="sender"))
+        for user in warmuppers_or_senders:
+            user_form = ManageUsersForm(instance=user)
+            user_forms.append(user_form)
+        context['user_forms'] = user_forms
+
+        return context
+
 
 class RegisterNewUserView(CreateView):
     template_name = 'managers/register-new-user.html'
