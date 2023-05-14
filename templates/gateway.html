@@ -24,10 +24,13 @@
             <ul>
                 {% for action in manager_actions %}
                     <li>Approve or reject <i>{{ action.action_details.name }}</i> for {{ action.action_details.sender.username }}.</li>
-                    <button class="actionacceptbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'accepted' %}green{% endif %}">Accept</button>
-                    <button class="actionrejectbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'rejected' %}red{% endif %}">Reject</button>
-                    <input type="text" placeholder="comment" name="commentfield" class="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}">
-                    <button type="submit" class="commentsubmitbutton" data-action-id={{action.id}}>Submit</button>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="actionacceptbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'accepted' %}green{% endif %}">Accept</button>
+                        <button class="actionrejectbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'rejected' %}red{% endif %}">Reject</button>
+                        <input type="text" placeholder="comment" name="commentfield" class="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}">
+                        <button type="submit" class="commentsubmitbutton" data-action-id={{action.id}}>Submit</button>
+                    </form>
                     <br><br>
                 {% endfor %}
             </ul>

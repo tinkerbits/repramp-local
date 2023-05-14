@@ -12,8 +12,12 @@
             {{ field.label_tag }} {{ field }}
             {% if field.id_for_label == 'id_gmail_count' %}
                 / {{ email_counts.gmail_count }}
+            {% elif field.id_for_label == 'id_google_workspace_count' %}
+                / {{ email_counts.google_workspace_count }}
             {% elif field.id_for_label == 'id_microsoft_count' %}
                 / {{ email_counts.microsoft_count }}
+            {% elif field.id_for_label == 'id_msft_365_count' %}
+                / {{ email_counts.msft_365_count }}
             {% elif field.id_for_label == 'id_yahoo_count' %}
                 / {{ email_counts.yahoo_count }}
             {% elif field.id_for_label == 'id_other_count' %}

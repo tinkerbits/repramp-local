@@ -34,7 +34,6 @@ class ManageUsersView(ListView):
         role = request.GET.get('m2-role')
         privilege = request.GET.get('m2-privilege')
 
-
         if userid:
             obj = CustomUser.objects.get(id=userid)
             obj.username = username

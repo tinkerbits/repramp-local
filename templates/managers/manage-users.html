@@ -21,7 +21,7 @@
                 {% if user_form.instance.role == "sender"%}
                     {{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}
                 {% else %}
-                    {% if "for=\"id_privilege\"" not in field.label_tag %}
+                    {% if "id_privilege" not in field.id_for_label %}
                         {{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}      
                     {% endif %}
                 {% endif %}

@@ -19,6 +19,11 @@ class CreateEmailListView(CreateView):
         return context
 
     def form_valid(self, form):
+
         form.instance.sender = self.request.user
+
+        addresses = form.cleaned_data['sender_addresses'].split(';')
+        form.instance.sender_addresses = ';'.join([address.strip() for address in addresses])
+
         return super().form_valid(form)
     

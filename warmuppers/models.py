@@ -7,7 +7,9 @@ class EmailAddress(models.Model):
     email = models.EmailField(unique=True)
     MAILBOX_PROVIDER_CHOICES = (
         ('gmail', 'gmail'),
+        ('google_workspace', 'google_workspace'),
         ('microsoft', 'microsoft'),
+        ('msft_365', 'msft_365'),
         ('yahoo', 'yahoo'),
         ('other', 'other'),
     )
