@@ -24,6 +24,30 @@ class ManageUsersView(ListView):
         context['user_forms'] = user_forms
 
         return context
+    
+    def get(self,request, *args, **kwargs):
+        userid = request.GET.get('m2-userid')
+        username = request.GET.get('m2-username')
+        email = request.GET.get('m2-email')
+        first_name = request.GET.get('m2-first_name')
+        last_name = request.GET.get('m2-last_name')
+        role = request.GET.get('m2-role')
+        privilege = request.GET.get('m2-privilege')
+
+
+        if userid:
+            obj = CustomUser.objects.get(id=userid)
+            obj.username = username
+            obj.email = email
+            obj.first_name = first_name
+            obj.last_name = last_name
+            obj.role = role
+            if privilege:
+                obj.privilege = privilege
+            obj.save()
+            return super().get(request, *args, **kwargs)
+        else:
+            return super().get(request, *args, **kwargs)
 
 
 class RegisterNewUserView(CreateView):
