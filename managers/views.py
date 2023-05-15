@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 from .forms import ManageUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
-from warmuppers.models import EmailAddress
+from warmuppers.models import EmailAddress, EmailAddressAssignment
 from users.models import CustomUser
 
 
@@ -54,9 +54,25 @@ class RegisterNewUserView(CreateView):
     form_class = RegisterNewUserForm
     success_url = reverse_lazy('gateway')
 
-
-class AssignEmailAddressesToWarmupperView(TemplateView):
+class AssignEmailAddressesToWarmupperView(ListView):
     template_name = 'managers/assign-email-addresses-to-warmupper.html'
+    model = EmailAddress
+
+    def post(self, request, *args, **kwargs):
+        for key, value in request.POST.items():
+            print(key, value)
+        return self.get(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        warmuppers = CustomUser.objects.filter(role="warmupper")
+        context['warmupper_list'] = warmuppers
+
+        emailaddressassignments = EmailAddressAssignment.objects.all()
+        context['emailaddressassignment_list'] = emailaddressassignments
+        return context
 
 class CalculateWarmupperEmailEngagementView(TemplateView):
     template_name = 'managers/calculate-warmupper-email-engagement.html'

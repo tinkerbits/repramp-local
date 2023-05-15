@@ -19,11 +19,10 @@ class EmailAddress(models.Model):
     def __str__(self):
         return self.email
     
-class Assignment(models.Model):
+class EmailAddressAssignment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now = True)
     email = models.ForeignKey(EmailAddress, on_delete=models.CASCADE, related_name="email_assignments")
-    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="email_senders")
     warmupper = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="email_warmuppers")
 
     def __str__(self):

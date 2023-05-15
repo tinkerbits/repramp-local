@@ -6,7 +6,6 @@ from django.core.validators import MaxValueValidator
 
 
 class EmailListCreationForm(forms.ModelForm):
-
     class Meta:
         model = EmailList
         fields = ('name', 'sender_addresses', 'gmail_count', 'google_workspace_count', 'microsoft_count', 'msft_365_count', 'yahoo_count', 'other_count',)

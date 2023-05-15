@@ -3,7 +3,22 @@
 {% block title %}Assign Email Addresses To Warmupper{% endblock title %}
 
 {% block content %}
-
-    assign-email-addresses-to-warmupper
+<form method="post">
+    {% csrf_token %}
+    {% for email in object_list%}
+        {% if email.is_active == True %}
+            {{email}}
+            --> 
+            <select name="warmupper">
+                <option value=""></option>
+                {% for warmupper in warmupper_list %}
+                    <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}">{{ warmupper.username }}</option>
+                {% endfor %}
+            </select>
+            <br>
+        {% endif %}
+    {% endfor %}
+    <button type="submit">Save</button>
+</form>
 
 {% endblock content %}

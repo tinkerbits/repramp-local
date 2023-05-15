@@ -83,3 +83,44 @@ for(let userdatasubmitbutton of userdatasubmitbuttons){
 
   })
 }
+
+// MANAGERS/ASSIGN-EMAIL-ADDRESSES-TO-WARMUPPERS.HTML
+
+//// Save Assignments Button
+
+let selectdropdowns = document.querySelectorAll('select[name="warmupper"]');
+let savebutton = document.querySelector('button[type="submit"]');
+
+
+
+
+savebutton.addEventListener('click', event => {
+
+  event.preventDefault();
+
+  
+  //////// build the formData object
+  let warmupperupdates = new FormData()
+
+  for(let selectdropdown of selectdropdowns){
+    let selectedoption = selectdropdown.options[selectdropdown.selectedIndex];
+    warmupperupdates.append(selectedoption.getAttribute('data-email-id'), selectedoption.getAttribute('data-warmupper-id'))
+  }
+
+  //////// function to get the csrf token
+  function getCookie(name) {
+    let cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : null;
+  }
+
+  //////// fetch request to send the formData to the django view
+  fetch(`http://localhost:8000/assign-email-addresses-to-warmupper/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: warmupperupdates
+  })
+
+});
