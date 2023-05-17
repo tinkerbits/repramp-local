@@ -117,7 +117,6 @@ savebutton.addEventListener('click', event => {
   fetch(`http://localhost:8000/assign-email-addresses-to-warmupper/`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       'X-CSRFToken': getCookie('csrftoken')
     },
     body: warmupperupdates
