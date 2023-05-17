@@ -68,8 +68,11 @@ class AssignEmailAddressesToWarmupperView(ListView):
 
                 if assignmentqs.exists():
                     for assignmentobj in assignmentqs:
-                        assignmentobj.warmupper = warmupperobj
-                        assignmentobj.save()
+                        if assignmentobj.warmupper == warmupperobj:
+                            continue
+                        else:
+                            assignmentobj.warmupper = warmupperobj
+                            assignmentobj.save()
                 else:
                     newassignmentobj = EmailAddressAssignment(email=emailobj, warmupper=warmupperobj)
                     newassignmentobj.save()
