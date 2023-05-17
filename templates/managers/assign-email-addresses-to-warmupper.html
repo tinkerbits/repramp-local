@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load manager_tags %}
+
 {% block title %}Assign Email Addresses To Warmupper{% endblock title %}
 
 {% block content %}
@@ -12,7 +14,7 @@
             <select name="warmupper">
                 <option value=""></option>
                 {% for warmupper in warmupper_list %}
-                    <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}">{{ warmupper.username }}</option>
+                    <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}" {% if email.id|checkassignment:warmupper.id %}selected{% endif %}>{{ warmupper.username }}</option>
                 {% endfor %}
             </select>
             <br>

@@ -64,8 +64,16 @@ class AssignEmailAddressesToWarmupperView(ListView):
             if key != 'null':
                 emailobj = EmailAddress.objects.get(id=key)
                 warmupperobj = CustomUser.objects.get(id=value)
-                emailaddressassignmentobj = EmailAddressAssignment(email=emailobj, warmupper=warmupperobj)
-                emailaddressassignmentobj.save()
+                assignmentqs = EmailAddressAssignment.objects.filter(email=emailobj)
+
+                if assignmentqs.exists():
+                    for assignmentobj in assignmentqs:
+                        assignmentobj.warmupper = warmupperobj
+                        assignmentobj.save()
+                else:
+                    newassignmentobj = EmailAddressAssignment(email=emailobj, warmupper=warmupperobj)
+                    newassignmentobj.save()
+
         return self.get(request, *args, **kwargs)
 
 
