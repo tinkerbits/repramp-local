@@ -1,12 +1,15 @@
 import csv
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, TemplateView, ListView, FormView
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import ManageUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm
-from warmuppers.models import EmailAddress, EmailAddressAssignment
+
+
+from .forms import ManageUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm, UploadEngagementDataForm
+from warmuppers.models import EmailAddress, EmailAddressAssignment, EmailAddressEngagement
 from users.models import CustomUser
 
 
@@ -90,8 +93,29 @@ class AssignEmailAddressesToWarmupperView(ListView):
         context['emailaddressassignment_list'] = emailaddressassignments
         return context
 
-class CalculateWarmupperEmailEngagementView(TemplateView):
+class CalculateWarmupperEmailEngagementView(FormView):
     template_name = 'managers/calculate-warmupper-email-engagement.html'
+    form_class = UploadEngagementDataForm
+    success_url = reverse_lazy('gateway')
+
+    def post(self, request, *args, **kwargs):
+        
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            uploaded_file = form.cleaned_data['file']
+            reader = csv.reader(uploaded_file.read().decode('utf-8').splitlines())
+            
+            for row in reader:
+                try:
+                    emailobj = EmailAddress.objects.get(email=row[0])
+                    assignmentobj = EmailAddressAssignment.objects.get(email=emailobj)
+                    obj = EmailAddressEngagement(datatype=form.cleaned_data['datatype'], email=emailobj, warmupper=assignmentobj.warmupper)
+                    obj.save()
+                except ObjectDoesNotExist:
+                    continue
+
+        return super().post(request, *args, **kwargs)
 
 class WarmupperEmailEngagementAndRenumeration(TemplateView):
     template_name = 'managers/warmupper-email-engagement-and-renumeration.html'
@@ -102,7 +126,7 @@ class AddEmailAddresses(CreateView):
     form_class = AddEmailAddressForm
     second_form_class = UploadEmailAddressesForm
 
-    # Adds the second_form_flass to the context
+    # Adds the second_form_class to the context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["upload_email_form"] = self.second_form_class()

@@ -1,6 +1,6 @@
 from django import forms
 from users.forms import CustomUserCreationForm
-from warmuppers.models import EmailAddress
+from warmuppers.models import EmailAddress, EmailAddressEngagement
 from users.models import CustomUser
 
 class ManageUsersForm(forms.ModelForm):
@@ -35,3 +35,12 @@ class AddEmailAddressForm(forms.ModelForm):
 
 class UploadEmailAddressesForm(forms.Form):
     file = forms.FileField()
+
+class UploadEngagementDataForm(forms.ModelForm):
+
+    file = forms.FileField()
+
+    class Meta:
+        model = EmailAddressEngagement
+        fields = ['datatype', 'file']
+

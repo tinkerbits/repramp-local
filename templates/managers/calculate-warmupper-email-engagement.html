@@ -4,6 +4,10 @@
 
 {% block content %}
 
-    calculate-warmupper-email-engagement.html
+<form method="post" enctype="multipart/form-data" action="{% url 'm-calculate-warmupper-email-engagement' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
 
 {% endblock content %}

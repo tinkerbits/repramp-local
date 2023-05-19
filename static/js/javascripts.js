@@ -89,9 +89,7 @@ for(let userdatasubmitbutton of userdatasubmitbuttons){
 //// Save Assignments Button
 
 let selectdropdowns = document.querySelectorAll('select[name="warmupper"]');
-let savebutton = document.querySelector('button[type="submit"]');
-
-
+let savebutton = document.querySelector('button#submitbutton');
 
 
 savebutton.addEventListener('click', event => {
