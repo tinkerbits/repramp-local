@@ -34,8 +34,8 @@ class EmailAddressEngagement(models.Model):
     email = models.ForeignKey(EmailAddress, on_delete=models.CASCADE, related_name="engagement_emails", blank=True, null=True)
     warmupper = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="engagement_warmuppers", blank=True, null=True)
     DATATYPE_CHOICES = (
-        ('opens', 'opens'),
-        ('clicks', 'clicks'),
+        ('open', 'opens'),
+        ('click', 'clicks'),
     )
     datatype = models.CharField(max_length=20, choices=DATATYPE_CHOICES)    
 
