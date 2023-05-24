@@ -1,7 +1,10 @@
-import logging
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from django.views.generic import TemplateView
+from django.db.models import Sum, Case, When
 
+from warmuppers.models import EmailAddressEngagement
 from senders.models import EmailList
 from managers.models import ManagerActions
 
@@ -11,8 +14,24 @@ class GatewayView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context["this_users_email_lists"] =  EmailList.objects.filter(sender=self.request.user.id)
+
         context["manager_actions"] = ManagerActions.objects.all()
+
+        last_month = datetime.now() - relativedelta(months=1)
+        context["email_address_engagement"] = EmailAddressEngagement.objects.filter(created__gte=last_month)
+
+
+        context["engagement_by_warmupper"] = EmailAddressEngagement.objects.select_related(
+                'warmupper'
+            ).values(
+                'warmupper__username'
+            ).annotate(
+                opens_sum=Sum(Case(When(datatype='open', then=1), default=0)),
+                clicks_sum=Sum(Case(When(datatype='click', then=1), default=0))
+            ).order_by('warmupper__username')
+        
         return context
 
     def get(self,request, *args, **kwargs):

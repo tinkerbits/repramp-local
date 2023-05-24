@@ -25,7 +25,7 @@
 
             <!--STATS-->
             <div>
-                <canvas id="stats_chart" height="80px"></canvas>
+                <canvas id="stats_chart" height="60px"></canvas>
             </div>
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,7 +33,7 @@
             <script>
 
                 // Labels
-                const labels = ['Warmupper 1', 'Warmupper 2', 'Warmupper 3', 'Warmupper 4'];
+                const labels = [{% for engagement in engagement_by_warmupper%}"{{engagement.warmupper__username}}",{%endfor%}];
 
                 // Data
                 const data = {
@@ -41,14 +41,14 @@
                   datasets: [
                   {
                     label: 'Opens',
-                    data: [5, 3, 7, 2],
+                    data: [{% for engagement in engagement_by_warmupper%}"{{engagement.opens_sum}}",{%endfor%}],
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 1.5
                   },
                   {
                     label: 'Clicks',
-                    data: [4, 2, 6, 1],
+                    data: [{% for engagement in engagement_by_warmupper%}"{{engagement.clicks_sum}}",{%endfor%}],
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgb(54, 162, 235)',
                     borderWidth: 1.5
@@ -91,7 +91,6 @@
                     <br><br>
                 {% endfor %}
             </ul>
-
 
         {% elif user.role == "sender" %}
 
