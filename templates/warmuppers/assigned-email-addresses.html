@@ -4,6 +4,11 @@
 
 {% block content %}
 
-    assigned-email-addresses
+<ul>
+    {% for email_address_assignment in this_users_email_address_assignments %}
+        <li>{{email_address_assignment}}</li>
+    {% endfor %}
+</ul>
+
 
 {% endblock content %}

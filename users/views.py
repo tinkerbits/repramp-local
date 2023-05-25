@@ -10,7 +10,6 @@ from managers.models import ManagerActions
 
 class GatewayView(TemplateView):
     template_name = 'gateway.html'
-    model = EmailList
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,10 +19,9 @@ class GatewayView(TemplateView):
         context["manager_actions"] = ManagerActions.objects.all()
 
         last_month = datetime.now() - relativedelta(months=1)
-        context["email_address_engagement"] = EmailAddressEngagement.objects.filter(created__gte=last_month)
 
 
-        context["engagement_by_warmupper"] = EmailAddressEngagement.objects.select_related(
+        context["engagement_by_warmupper"] = EmailAddressEngagement.objects.filter(created__gte=last_month).select_related(
                 'warmupper'
             ).values(
                 'warmupper__username'

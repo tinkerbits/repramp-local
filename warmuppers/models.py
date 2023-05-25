@@ -26,7 +26,7 @@ class EmailAddressAssignment(models.Model):
     warmupper = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="email_warmuppers")
 
     def __str__(self):
-        return self.email
+        return self.email.email
     
 class EmailAddressEngagement(models.Model):
     created = models.DateTimeField(auto_now_add=True)
