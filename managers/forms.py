@@ -42,5 +42,5 @@ class UploadEngagementDataForm(forms.ModelForm):
 
     class Meta:
         model = EmailAddressEngagement
-        fields = ['datatype', 'file']
+        fields = ['data_type', 'file']
 

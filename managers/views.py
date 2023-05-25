@@ -57,8 +57,8 @@ class RegisterNewUserView(CreateView):
     form_class = RegisterNewUserForm
     success_url = reverse_lazy('gateway')
 
-class AssignEmailAddressesToWarmupperView(ListView):
-    template_name = 'managers/assign-email-addresses-to-warmupper.html'
+class ManageEmailAddresses(ListView):
+    template_name = 'managers/manage-email-addresses.html'
     model = EmailAddress
 
     def post(self, request, *args, **kwargs):
@@ -110,7 +110,7 @@ class CalculateWarmupperEmailEngagementView(FormView):
                 try:
                     emailobj = EmailAddress.objects.get(email=row[0])
                     assignmentobj = EmailAddressAssignment.objects.get(email=emailobj)
-                    obj = EmailAddressEngagement(datatype=form.cleaned_data['datatype'], email=emailobj, warmupper=assignmentobj.warmupper)
+                    obj = EmailAddressEngagement(data_type=form.cleaned_data['data_type'], email=emailobj, warmupper=assignmentobj.warmupper)
                     obj.save()
                 except ObjectDoesNotExist:
                     continue
@@ -120,8 +120,8 @@ class CalculateWarmupperEmailEngagementView(FormView):
 class WarmupperEmailEngagementAndRenumeration(TemplateView):
     template_name = 'managers/warmupper-email-engagement-and-renumeration.html'
 
-class AddEmailAddresses(CreateView):
-    template_name = 'managers/add-email-addresses.html'
+class AddNewEmailAddresses(CreateView):
+    template_name = 'managers/add-new-email-addresses.html'
     success_url = reverse_lazy('gateway')
     form_class = AddEmailAddressForm
     second_form_class = UploadEmailAddressesForm

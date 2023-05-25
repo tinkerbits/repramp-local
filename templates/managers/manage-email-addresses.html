@@ -2,9 +2,13 @@
 
 {% load manager_tags %}
 
-{% block title %}Assign Email Addresses To Warmupper{% endblock title %}
+{% block title %}Manage Email Addresses{% endblock title %}
 
 {% block content %}
+
+<a href="{% url 'm-add-new-email-addresses' %}">Add New Email Addresses</a>
+
+
 <form method="post">
     {% csrf_token %}
     {% for email in object_list%}

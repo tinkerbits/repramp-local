@@ -18,8 +18,7 @@
             <!--MENUBAR-->
 
             <a href="{% url 'm-manage-users' %}">Manage Users</a>
-            <a href="{% url 'm-add-email-addresses' %}">Add Email Addresses</a>
-            <a href="{% url 'm-assign-email-addresses-to-warmupper' %}">Assign Email Addresses To Warmupper</a>
+            <a href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
             <a href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
             <a href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
 
@@ -95,6 +94,8 @@
         {% elif user.role == "sender" %}
 
             <a href="{% url 's-create-email-list' %}">Create Email List</a>
+            <a href="{% url 's-manage-email-lists' %}">Manage Email Lists</a>
+
             
             <ul>
                 {% for email_list in this_users_email_lists %}

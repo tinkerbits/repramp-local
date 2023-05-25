@@ -26,8 +26,8 @@ class GatewayView(TemplateView):
             ).values(
                 'warmupper__username'
             ).annotate(
-                opens_sum=Sum(Case(When(datatype='open', then=1), default=0)),
-                clicks_sum=Sum(Case(When(datatype='click', then=1), default=0))
+                opens_sum=Sum(Case(When(data_type='open', then=1), default=0)),
+                clicks_sum=Sum(Case(When(data_type='click', then=1), default=0))
             ).order_by('warmupper__username')
         
         return context

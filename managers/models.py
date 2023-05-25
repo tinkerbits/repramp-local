@@ -4,7 +4,7 @@ from senders.models import EmailList
 class ManagerActions(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now = True)
-    action = models.CharField(max_length=100)
+    action_type = models.CharField(max_length=100)
     action_details = models.ForeignKey(EmailList, on_delete=models.CASCADE, related_name="action_details", null=True, blank=True)
     STATUS_CHOICES = (
     ('accepted', 'accepted'),
@@ -14,4 +14,4 @@ class ManagerActions(models.Model):
     comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.action
+        return self.action_type

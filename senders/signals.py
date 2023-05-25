@@ -7,8 +7,7 @@ from managers.models import ManagerActions
 @receiver(post_save, sender=EmailList)
 def create_manager_action(sender, instance, created, **kwargs):
     if created:
-        action = ManagerActions.objects.create(
-            action='emaillist-approval',
+        ManagerActions.objects.create(
+            action_type='emaillist-approval',
             action_details=instance
         )
-        print("saved this one")

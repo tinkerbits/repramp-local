@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Email Lists{% endblock title %}
+
+{% block content %}
+
+<ul>
+    {% for email_list in email_lists %}
+        <li>{{ email_list.action_details.name }}</li>
+    {% endfor %}
+    
+</ul>
+
+
+{% endblock content %}

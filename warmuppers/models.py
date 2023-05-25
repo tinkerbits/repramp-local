@@ -33,11 +33,11 @@ class EmailAddressEngagement(models.Model):
     last_modified = models.DateTimeField(auto_now = True)
     email = models.ForeignKey(EmailAddress, on_delete=models.CASCADE, related_name="engagement_emails", blank=True, null=True)
     warmupper = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="engagement_warmuppers", blank=True, null=True)
-    DATATYPE_CHOICES = (
+    DATA_TYPE_CHOICES = (
         ('open', 'opens'),
         ('click', 'clicks'),
     )
-    datatype = models.CharField(max_length=20, choices=DATATYPE_CHOICES)    
+    data_type = models.CharField(max_length=20, choices=DATA_TYPE_CHOICES)    
 
     def __str__(self):
         return self.email.email
