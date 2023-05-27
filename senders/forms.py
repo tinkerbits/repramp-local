@@ -1,5 +1,5 @@
 from django import forms
-from .models import EmailList
+from .models import EmailListRequest
 from .utils import get_email_address_count
 from django.core.validators import MaxValueValidator
 
@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator
 
 class EmailListCreationForm(forms.ModelForm):
     class Meta:
-        model = EmailList
+        model = EmailListRequest
         fields = ('name', 'sender_addresses', 'gmail_count', 'google_workspace_count', 'microsoft_count', 'msft_365_count', 'yahoo_count', 'other_count',)
 
     def __init__(self, *args, **kwargs):

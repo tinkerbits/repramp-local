@@ -1,11 +1,11 @@
 from django.db import models
-from senders.models import EmailList
+from senders.models import EmailListRequest
 
 class ManagerActions(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now = True)
     action_type = models.CharField(max_length=100)
-    action_details = models.ForeignKey(EmailList, on_delete=models.CASCADE, related_name="action_details", null=True, blank=True)
+    action_details = models.ForeignKey(EmailListRequest, on_delete=models.CASCADE, related_name="action_details", null=True, blank=True)
     STATUS_CHOICES = (
     ('accepted', 'accepted'),
     ('rejected', 'rejected'),

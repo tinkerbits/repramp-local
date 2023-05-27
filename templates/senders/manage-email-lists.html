@@ -4,6 +4,9 @@
 
 {% block content %}
 
+<a href="{% url 's-create-new-email-list' %}">Create New Email List</a>
+
+
 <ul>
     {% for email_list in email_lists %}
         <li>{{ email_list.action_details.name }}</li>

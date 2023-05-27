@@ -7,8 +7,8 @@ from managers.models import ManagerActions
 
 
 
-class CreateEmailListView(CreateView):
-    template_name = 'senders/create-email-list.html'
+class CreateNewEmailListView(CreateView):
+    template_name = 'senders/create-new-email-list.html'
     form_class = EmailListCreationForm
     success_url = reverse_lazy('gateway')
 

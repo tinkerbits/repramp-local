@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.db.models import Sum, Case, When
 
 from warmuppers.models import EmailAddressEngagement
-from senders.models import EmailList
+from senders.models import EmailListRequest
 from managers.models import ManagerActions
 
 class GatewayView(TemplateView):
@@ -14,7 +14,7 @@ class GatewayView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["this_users_email_lists"] =  EmailList.objects.filter(sender=self.request.user.id)
+        context["this_users_email_lists"] =  EmailListRequest.objects.filter(sender=self.request.user.id)
 
         context["manager_actions"] = ManagerActions.objects.all()
 

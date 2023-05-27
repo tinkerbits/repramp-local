@@ -84,7 +84,7 @@ for(let userdatasubmitbutton of userdatasubmitbuttons){
   })
 }
 
-// MANAGERS/ASSIGN-EMAIL-ADDRESSES-TO-WARMUPPERS.HTML
+// MANAGERS/MANAGE-EMAIL_ADDRESSES.HTML
 
 //// Save Assignments Button
 
@@ -112,7 +112,7 @@ savebutton.addEventListener('click', event => {
   }
 
   //////// fetch request to send the formData to the django view
-  fetch(`http://localhost:8000/assign-email-addresses-to-warmupper/`, {
+  fetch(`http://localhost:8000/manage-email-addresses/`, {
     method: 'POST',
     headers: {
       'X-CSRFToken': getCookie('csrftoken')
