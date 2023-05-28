@@ -95,15 +95,6 @@
 
             <a href="{% url 's-manage-email-lists' %}">Manage Email Lists</a>
 
-            
-            <ul>
-                {% for email_list in this_users_email_lists %}
-                    <li>{{ email_list }}</li>
-                {% endfor %}
-            </ul>
-
-
-
         {% endif %}
 
         <p><a href="{% url 'logout' %}">Log Out</a></p>

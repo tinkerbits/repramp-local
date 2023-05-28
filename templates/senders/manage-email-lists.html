@@ -8,11 +8,20 @@
 
 
 <ul>
-    {% for email_list in email_lists %}
-        <li>{{ email_list.action_details.name }}</li>
+    {% for email_list_request in email_list_requests %}
+        {% if email_list_request.status == "accepted" %}
+            <li style="color: green;">{{ email_list_request.action_details.name }}</li>
+            <a href="{% url 'download_email_list_assignments' email_list_request.id %}"><button>Download</button></a>
+
+        {% elif email_list_request.status == "rejected" %}
+            <li style="color: red">{{ email_list_request.action_details.name }}</li>
+        {% else %}
+            <li>{{ email_list_request.action_details.name }}</li>
+        {% endif %}
     {% endfor %}
     
 </ul>
+
 
 
 {% endblock content %}

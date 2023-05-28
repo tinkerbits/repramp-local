@@ -28,6 +28,6 @@ class EmailListAssignment(models.Model):
     email = models.ForeignKey(EmailAddress, on_delete=models.CASCADE, related_name="email_list_assignments")
 
     def __str__(self):
-        return self.email
+        return self.email.email
     
     

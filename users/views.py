@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
 from django.views.generic import TemplateView
@@ -18,7 +18,7 @@ class GatewayView(TemplateView):
 
         context["manager_actions"] = ManagerActions.objects.all()
 
-        last_month = datetime.now() - relativedelta(months=1)
+        last_month = timezone.now() - relativedelta(months=1)
 
 
         context["engagement_by_warmupper"] = EmailAddressEngagement.objects.filter(created__gte=last_month).select_related(
