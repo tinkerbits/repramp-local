@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 from django.views.generic import TemplateView
 from django.db.models import Sum, Case, When
 
+
 from warmuppers.models import EmailAddressEngagement
 from senders.models import EmailListRequest
 from managers.models import ManagerActions
@@ -20,7 +21,6 @@ class GatewayView(TemplateView):
 
         last_month = timezone.now() - relativedelta(months=1)
 
-
         context["engagement_by_warmupper"] = EmailAddressEngagement.objects.filter(created__gte=last_month).select_related(
                 'warmupper'
             ).values(
@@ -29,6 +29,13 @@ class GatewayView(TemplateView):
                 opens_sum=Sum(Case(When(data_type='open', then=1), default=0)),
                 clicks_sum=Sum(Case(When(data_type='click', then=1), default=0))
             ).order_by('warmupper__username')
+        
+        context["engagement_by_this_warmupper"] = EmailAddressEngagement.objects.filter(created__gte=last_month, warmupper=self.request.user.id).values(
+                'created__date'
+            ).annotate(
+                opens_sum=Sum(Case(When(data_type='open', then=1), default=0)),
+                clicks_sum=Sum(Case(When(data_type='click', then=1), default=0))
+            ).order_by('created__date')
         
         return context
 
