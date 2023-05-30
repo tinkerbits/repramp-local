@@ -3,11 +3,11 @@ from users.forms import CustomUserCreationForm
 from warmuppers.models import EmailAddress, EmailAddressEngagement
 from users.models import CustomUser
 
-class ManageUsersForm(forms.ModelForm):
+class ManageSomeUsersForm(forms.ModelForm):
 
     ROLE_CHOICES = (
-        ('warmupper', 'warmupper'),
         ('sender', 'sender'),
+        ('warmupper', 'warmupper'),
     )
     role = forms.ChoiceField(choices=ROLE_CHOICES)
 

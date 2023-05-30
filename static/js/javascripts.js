@@ -59,14 +59,29 @@ for(let commentsubmitbutton of commentsubmitbuttons){
   })
 }
 
-// MANAGERS/MANAGE-USERS.HTML
+// MANAGERS/MANAGE-SOME-USERS.HTML
+
+//// Display Privilege Field if Role is Sender
+
+let rolefields = document.querySelectorAll(`select[name="role"]`)
+
+for(let rolefield of rolefields){
+  rolefield.addEventListener('change', event => {
+    if(rolefield.value == "sender"){
+      let hiddenspan = document.querySelector(`span[data-user-id="${event.target.dataset.userId}"]`);
+      hiddenspan.style.display = "block";
+    }else{
+      let hiddenspan = document.querySelector(`span[data-user-id="${event.target.dataset.userId}"]`);
+      hiddenspan.style.display = "none";
+    }
+})}
 
 //// User Data Submit Buttons
 
-let userdatasubmitbuttons = document.querySelectorAll('button.userdatasubmitbutton');
+let someuserdatasubmitbuttons = document.querySelectorAll('button.someuserdatasubmitbutton');
 
-for(let userdatasubmitbutton of userdatasubmitbuttons){
-  userdatasubmitbutton.addEventListener('click', event => {
+for(let someuserdatasubmitbutton of someuserdatasubmitbuttons){
+  someuserdatasubmitbutton.addEventListener('click', event => {
 
     event.preventDefault();
     let usernamefield = document.querySelector(`input[name="username"][data-user-id="${event.target.dataset.userId}"]`);
@@ -74,15 +89,14 @@ for(let userdatasubmitbutton of userdatasubmitbuttons){
     let first_namefield = document.querySelector(`input[name="first_name"][data-user-id="${event.target.dataset.userId}"]`);
     let last_namefield = document.querySelector(`input[name="last_name"][data-user-id="${event.target.dataset.userId}"]`);
     let rolefield = document.querySelector(`select[name="role"][data-user-id="${event.target.dataset.userId}"]`);
-    if(rolefield.value === 'sender'){
-      let privilegefield = document.querySelector(`select[name="privilege"][data-user-id="${event.target.dataset.userId}"]`);
-      fetch(`http://localhost:8000/manage-users/?m2-userid=${event.target.dataset.userId}&m2-username=${usernamefield.value}&m2-email=${emailfield.value}&m2-first_name=${first_namefield.value}&m2-last_name=${last_namefield.value}&m2-role=${rolefield.value}&m2-privilege=${privilegefield.value}`);
-    }else{
-      fetch(`http://localhost:8000/manage-users/?m2-userid=${event.target.dataset.userId}&m2-username=${usernamefield.value}&m2-email=${emailfield.value}&m2-first_name=${first_namefield.value}&m2-last_name=${last_namefield.value}&m2-role=${rolefield.value}`);
-    };
+    let privilegefield = document.querySelector(`select[name="privilege"][data-user-id="${event.target.dataset.userId}"]`);
+
+    fetch(`http://localhost:8000/manage-some-users/?m2-userid=${event.target.dataset.userId}&m2-username=${usernamefield.value}&m2-email=${emailfield.value}&m2-first_name=${first_namefield.value}&m2-last_name=${last_namefield.value}&m2-role=${rolefield.value}&m2-privilege=${privilegefield.value}`);
 
   })
 }
+
+
 
 // MANAGERS/MANAGE-EMAIL_ADDRESSES.HTML
 
@@ -121,3 +135,30 @@ savebutton.addEventListener('click', event => {
   })
 
 });
+
+
+
+// DIRECTORS/MANAGE-ALL-USERS.HTML
+
+//// User Data Submit Buttons
+
+let alluserdatasubmitbuttons = document.querySelectorAll('button.alluserdatasubmitbutton');
+
+for(let alluserdatasubmitbutton of alluserdatasubmitbuttons){
+  alluserdatasubmitbutton.addEventListener('click', event => {
+
+    event.preventDefault();
+    let usernamefield = document.querySelector(`input[name="username"][data-user-id="${event.target.dataset.userId}"]`);
+    let emailfield = document.querySelector(`input[name="email"][data-user-id="${event.target.dataset.userId}"]`);
+    let first_namefield = document.querySelector(`input[name="first_name"][data-user-id="${event.target.dataset.userId}"]`);
+    let last_namefield = document.querySelector(`input[name="last_name"][data-user-id="${event.target.dataset.userId}"]`);
+    let rolefield = document.querySelector(`select[name="role"][data-user-id="${event.target.dataset.userId}"]`);
+    if(rolefield.value === 'sender'){
+      let privilegefield = document.querySelector(`select[name="privilege"][data-user-id="${event.target.dataset.userId}"]`);
+      fetch(`http://localhost:8000/manage-all-users/?d1-userid=${event.target.dataset.userId}&d1-username=${usernamefield.value}&d1-email=${emailfield.value}&d1-first_name=${first_namefield.value}&d1-last_name=${last_namefield.value}&d1-role=${rolefield.value}&d1-privilege=${privilegefield.value}`);
+    }else{
+      fetch(`http://localhost:8000/manage-all-users/?d1-userid=${event.target.dataset.userId}&d1-username=${usernamefield.value}&d1-email=${emailfield.value}&d1-first_name=${first_namefield.value}&d1-last_name=${last_namefield.value}&d1-role=${rolefield.value}`);
+    };
+
+  })
+}

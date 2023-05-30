@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load manager_tags %}
+
+
+{% block title %}Manage Users{% endblock title %}
+
+{% block content %}
+
+
+<a href="{% url 'm-register-new-user' %}">Register New User</a>
+
+
+<form method="post">
+    {% csrf_token %}
+    <ul>
+        {% for user_form in user_forms %}
+            {% for field in user_form %}
+            <p>
+                {% comment %}ONLY RENDER PRIVILEGE FIELD IF USER.ROLE == SENDER{% endcomment %}
+                {% if user_form.instance.role == "sender"%}
+                    {{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}
+                {% else %}
+                    {% if "id_privilege" in field.id_for_label %}
+                        <span style="display: none;" data-user-id="{{user_form.instance.id}}">{{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}</span>
+                    {% else %}
+                        {{ field.label_tag }} {% add_attr field "data-user-id" user_form.instance.id %}
+                    {% endif %}
+                {% endif %}
+                
+                {% for error in field.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </p>
+            {% endfor %}
+
+            <button type="submit" class="someuserdatasubmitbutton" data-user-id={{user_form.instance.id}}>Submit</button>
+
+        {% endfor %}
+
+    </ul>
+</form>
+
+
+
+
+{% endblock content %}

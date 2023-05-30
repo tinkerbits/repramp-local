@@ -8,13 +8,13 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 
-from .forms import ManageUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm, UploadEngagementDataForm
+from .forms import ManageSomeUsersForm, RegisterNewUserForm, AddEmailAddressForm, UploadEmailAddressesForm, UploadEngagementDataForm
 from warmuppers.models import EmailAddress, EmailAddressAssignment, EmailAddressEngagement
 from users.models import CustomUser
 
 
-class ManageUsersView(ListView):
-    template_name = 'managers/manage-users.html'
+class ManageSomeUsersView(ListView):
+    template_name = 'managers/manage-some-users.html'
     model = CustomUser
 
     def get_context_data(self, **kwargs):
@@ -22,7 +22,7 @@ class ManageUsersView(ListView):
         user_forms = []
         warmuppers_or_senders = CustomUser.objects.filter(Q(role="warmupper") | Q(role="sender"))
         for user in warmuppers_or_senders:
-            user_form = ManageUsersForm(instance=user)
+            user_form = ManageSomeUsersForm(instance=user)
             user_forms.append(user_form)
         context['user_forms'] = user_forms
 
@@ -44,8 +44,10 @@ class ManageUsersView(ListView):
             obj.first_name = first_name
             obj.last_name = last_name
             obj.role = role
-            if privilege:
+            if role == 'sender' and privilege:
                 obj.privilege = privilege
+            else:
+                obj.privilege = None
             obj.save()
             return super().get(request, *args, **kwargs)
         else:

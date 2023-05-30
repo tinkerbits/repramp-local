@@ -21,9 +21,10 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("django.contrib.auth.urls")),
+    path("", include("senders.urls")),
     path("", include("warmuppers.urls")),
     path("", include("managers.urls")),
-    path("", include("senders.urls")),
+    path("", include("directors.urls")),
     path("", include("users.urls")),
     #path("", TemplateView.as_view(template_name="gateway.html"), name="gateway"),
 ]

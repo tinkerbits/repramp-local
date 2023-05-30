@@ -1,11 +1,11 @@
 from django.urls import path
 
-from .views import ManageUsersView, ManageEmailAddresses, CalculateWarmupperEmailEngagementView, WarmupperEmailEngagementAndRenumeration, AddNewEmailAddresses, RegisterNewUserView
+from .views import ManageSomeUsersView, ManageEmailAddresses, CalculateWarmupperEmailEngagementView, WarmupperEmailEngagementAndRenumeration, AddNewEmailAddresses, RegisterNewUserView
 
 
 
 urlpatterns = [
-    path('manage-users/', ManageUsersView.as_view(), name='m-manage-users'),
+    path('manage-some-users/', ManageSomeUsersView.as_view(), name='m-manage-some-users'),
     path('register-new-user/', RegisterNewUserView.as_view(), name='m-register-new-user'),
     path('manage-email-addresses/', ManageEmailAddresses.as_view(), name='m-manage-email-addresses'),
     path('add-new-email-addresses/', AddNewEmailAddresses.as_view(), name='m-add-new-email-addresses'),

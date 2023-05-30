@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "warmuppers.apps.WarmuppersConfig",
     "managers.apps.ManagersConfig",
     "senders.apps.SendersConfig",
+    "directors.apps.DirectorsConfig",
 ]
 
 MIDDLEWARE = [

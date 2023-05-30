@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
         ('manager', 'manager'),
         ('admin', 'admin'),
         ('sender', 'sender'),
+        ('director', 'director'),
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
