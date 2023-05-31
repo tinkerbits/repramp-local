@@ -36,8 +36,10 @@ class ManageAllUsersView(ListView):
             obj.first_name = first_name
             obj.last_name = last_name
             obj.role = role
-            if privilege:
+            if role == 'sender' and privilege:
                 obj.privilege = privilege
+            else:
+                obj.privilege = None
             obj.save()
             return super().get(request, *args, **kwargs)
         else:

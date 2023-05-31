@@ -153,7 +153,65 @@
 
         {% elif user.role == "director" %}
 
+          <!--MENUBAR-->
+
           <a href="{% url 'd-manage-all-users' %}">Manage All Users</a>
+          <a href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
+          <a href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
+          <a href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
+
+          <!--STATS-->
+          <div>
+            <canvas id="stats_chart" height="60px"></canvas>
+          </div>
+
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+          <script>
+
+            // Labels
+            const labels = [{% for engagement in engagement_by_warmupper%}"{{engagement.warmupper__username}}",{%endfor%}];
+
+            // Data
+            const data = {
+              labels: labels,
+              datasets: [
+              {
+                label: 'Opens',
+                data: [{% for engagement in engagement_by_warmupper%}"{{engagement.opens_sum}}",{%endfor%}],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 1.5
+              },
+              {
+                label: 'Clicks',
+                data: [{% for engagement in engagement_by_warmupper%}"{{engagement.clicks_sum}}",{%endfor%}],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 1.5
+              }
+            ]
+            };
+
+            // Config
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  },
+                  barPercentage: 0.8,
+                  categoryPercentage: 0.1
+                },
+              };
+
+            // New Chart
+            const myChart = new Chart(document.getElementById('stats_chart'), config);
+            
+          </script>
 
         {% endif %}
 
