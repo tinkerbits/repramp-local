@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% load manager_tags %}
 
 
@@ -39,6 +41,8 @@
 </form>
 
 
-
-
 {% endblock content %}
+
+{% block customjs %}
+  <script src="{% static 'js/manage-all-users.js' %}"></script>
+{% endblock customjs %}

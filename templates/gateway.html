@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %}Gateway{% endblock title %}
 
@@ -224,3 +226,7 @@
     {% endif %}
 
 {% endblock content %}
+
+{% block customjs %}
+  <script src="{% static 'js/gateway.js' %}"></script>
+{% endblock customjs %}
