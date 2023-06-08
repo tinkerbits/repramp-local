@@ -8,14 +8,16 @@ for(let acceptbutton of acceptButtons){
 
     event.preventDefault();
 
-    if(event.target.style.backgroundColor===''){
+    console.log(event.target)
+
+    if(!event.target.classList.contains('bg-green-400')){
       fetch(`http://localhost:8000/?m1-actionid=${event.target.dataset.actionId}&m1-status=accepted`);
-      event.target.style.backgroundColor = 'green';
+      event.target.classList.add('bg-green-400');
       matchingRejectButton = document.querySelector(`button.actionrejectbutton[data-action-id="${event.target.dataset.actionId}"]`);
-      matchingRejectButton.style.backgroundColor = '';
-    }else if(event.target.style.backgroundColor==='green'){
+      matchingRejectButton.classList.remove('bg-red-400');
+    }else if(event.target.classList.contains('bg-green-400')){
       fetch(`http://localhost:8000/?m1-actionid=${event.target.dataset.actionId}&m1-status=empty`);
-      event.target.style.backgroundColor = '';
+      event.target.classList.remove('bg-green-400');
     }
 
 
@@ -31,14 +33,14 @@ for(let rejectbutton of rejectButtons){
 
     event.preventDefault();
 
-    if(event.target.style.backgroundColor===''){
+    if(!event.target.classList.contains('bg-red-400')){
       fetch(`http://localhost:8000/?m1-actionid=${event.target.dataset.actionId}&m1-status=rejected`);
-      event.target.style.backgroundColor = 'red';
+      event.target.classList.add('bg-red-400');
       matchingAcceptButton = document.querySelector(`button.actionacceptbutton[data-action-id="${event.target.dataset.actionId}"]`);
-      matchingAcceptButton.style.backgroundColor = '';
-    }else if(event.target.style.backgroundColor==='red'){
+      matchingAcceptButton.classList.remove('bg-green-400');
+    }else if(event.target.classList.contains('bg-red-400')){
       fetch(`http://localhost:8000/?m1-actionid=${event.target.dataset.actionId}&m1-status=empty`);
-      event.target.style.backgroundColor = '';
+      event.target.classList.remove('bg-red-400');
     }
   })
 }

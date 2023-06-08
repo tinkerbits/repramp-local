@@ -78,14 +78,15 @@
         {% elif user.role == "manager" %}
 
             <!--MENUBAR-->
-
+ 
+            <div class="col-span-12 flex justify-evenly pt-8 pb-8">
             <a href="{% url 'm-manage-some-users' %}">Manage Some Users</a>
             <a href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
             <a href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
             <a href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
-
+            </div>
             <!--STATS-->
-            <div>
+            <div class="col-span-12 pb-8">
                 <canvas id="stats_chart" height="60px"></canvas>
             </div>
 
@@ -139,19 +140,24 @@
 
 
             <!--ACTIONS-->
-            <ul>
-                {% for action in manager_actions %}
-                    <li>Approve or reject <i>{{ action.action_details.name }}</i> for {{ action.action_details.sender.username }}.</li>
-                    <form method="post">
-                        {% csrf_token %}
-                        <button class="actionacceptbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'accepted' %}green{% endif %}">Accept</button>
-                        <button class="actionrejectbutton" data-action-id="{{action.id}}" style="background-color: {% if action.status == 'rejected' %}red{% endif %}">Reject</button>
-                        <input type="text" placeholder="comment" name="commentfield" class="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}">
-                        <button type="submit" class="commentsubmitbutton" data-action-id={{action.id}}>Submit</button>
-                    </form>
-                    <br><br>
-                {% endfor %}
-            </ul>
+
+
+            <div class="grid grid-cols-12 col-span-12">
+            {% for action in manager_actions %}
+                  <div class="px-10 pb-5 col-span-2">{{ action.action_details.name }}</div>
+                  <div class="px-10 pb-5 col-span-2">{{ action.action_details.sender.username }}</div>
+
+                  <form class="grid col-span-8 grid-cols-8 pb-5" method="post">
+                    {% csrf_token %}
+                    <div class="px-10 col-span-2">
+                      <button class="actionacceptbutton {% if action.status == 'accepted' %}bg-green-400{% endif %}" data-action-id="{{action.id}}">Accept</button>
+                      <button class="actionrejectbutton {% if action.status == 'rejected' %}bg-red-400{% endif %}" data-action-id="{{action.id}}">Reject</button>
+                    </div>
+                    <div class="px-10 col-span-4"><input class="commentfield border-solid border-2 w-full" type="text" placeholder="comment" name="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}"></div>
+                    <div class="px-10 col-span-2"><button type="submit" class="commentsubmitbutton" data-action-id="{{action.id}}">Submit</button></div>
+                  </form>
+            {% endfor %}
+          </div>
 
         {% elif user.role == "director" %}
 
@@ -217,7 +223,9 @@
 
         {% endif %}
 
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
+        <div class="absolute bottom-0">
+          <a href="{% url 'logout' %}">Log Out</a>
+        </div>
 
     {% else %}
 
