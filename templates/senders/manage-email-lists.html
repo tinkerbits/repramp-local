@@ -4,23 +4,30 @@
 
 {% block content %}
 
-<a href="{% url 's-create-new-email-list' %}">Create New Email List</a>
 
 
-<ul>
+<div class="grid grid-cols-3 col-span-12">
     {% for email_list_request in email_list_requests %}
+        
+        <div class="px-10 pb-5 col-span-1">{{ email_list_request.action_details.name }}</div>
+        
         {% if email_list_request.status == "accepted" %}
-            <li style="color: green;">{{ email_list_request.action_details.name }}</li>
-            <a href="{% url 'download_email_list_assignments' email_list_request.id %}"><button>Download</button></a>
-
+            <div class="px-10 pb-5 col-span-1 text-green-400">{{ email_list_request.status }}</div>
+            <div class="px-10 pb-5 col-span-1"><a href="{% url 'download_email_list_assignments' email_list_request.id %}">Download</a></div>
         {% elif email_list_request.status == "rejected" %}
-            <li style="color: red">{{ email_list_request.action_details.name }}</li>
+            <div class="px-10 pb-5 col-span-1 text-red-400">{{ email_list_request.status }}</div>
+            <div class="px-10 pb-5 col-span-1"></div>
         {% else %}
-            <li>{{ email_list_request.action_details.name }}</li>
+            <div class="px-10 pb-5 col-span-1">{{ email_list_request.status }}</div>
+            <div class="px-10 pb-5 col-span-1"></div>
         {% endif %}
+
     {% endfor %}
-    
-</ul>
+  </div>
+
+  <br><br>
+  <a href="{% url 's-create-new-email-list' %}">Create New Email List</a>
+
 
 
 

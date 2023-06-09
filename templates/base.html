@@ -11,22 +11,58 @@
     <body class="text-white bg-slate-700">
         <main>
             <div class="grid grid-cols-12">
+
                 {% if user.is_authenticated %}
 
-                    Hi {{ user.username }}!
+                    <!--SENDER HEADER-->
+					{% if user.role == "sender" %}
+						<div class="col-span-12 flex justify-evenly pt-8 pb-8">
+							<a class="py-2 px-8 bg-slate-800" href="{% url 'gateway' %}">Home</a>
+							<a class="py-2 px-8 bg-slate-800" href="{% url 's-manage-email-lists' %}">Manage Email Lists</a>
+							<a class="py-2 px-8 bg-slate-800 text-gray-400" href="{% url 'logout' %}">Log Out</a>
+						</div>
 
-                    <!--MANAGER HEADER-->
-                    {% if user.role == "manager" %}
+					<!--WARMUPPER HEADER-->
+					{% elif user.role == "warmupper" %}
+					<div class="col-span-12 flex justify-evenly pt-8 pb-8">
+						<a class="py-2 px-8 bg-slate-800" href="{% url 'gateway' %}">Home</a>
+						<a class="py-2 px-8 bg-slate-800" href="{% url 'w-assigned-email-addresses' %}">Assigned Email Addresses</a>
+						<a class="py-2 px-8 bg-slate-800" href="{% url 'w-email-engagement-and-renumeration' %}">Email Engagement & Renumeration</a>
+						<a class="py-2 px-8 bg-slate-800 text-gray-400" href="{% url 'logout' %}">Log Out</a>
 
-                        <!--MENUBAR-->
+					</div>
+
+					<!--MANAGER HEADER-->
+                    {% elif user.role == "manager" %}
+
                         <div class="col-span-12 flex justify-evenly pt-8 pb-8">
                             <a class="py-2 px-8 bg-slate-800" href="{% url 'gateway' %}">Home</a>
                             <a class="py-2 px-8 bg-slate-800" href="{% url 'm-manage-some-users' %}">Manage Some Users</a>
                             <a class="py-2 px-8 bg-slate-800" href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
                             <a class="py-2 px-8 bg-slate-800" href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
                             <a class="py-2 px-8 bg-slate-800" href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
+							<a class="py-2 px-8 bg-slate-800 text-gray-400" href="{% url 'logout' %}">Log Out</a>
                         </div>
+
+					<!--DIRECTOR HEADER-->
+                    {% elif user.role == "director" %}
+
+                        <div class="col-span-12 flex justify-evenly pt-8 pb-8">
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'gateway' %}">Home</a>
+							<a class="py-2 px-8 bg-slate-800" href="{% url 'd-manage-all-users' %}">Manage All Users</a>
+							<a class="py-2 px-8 bg-slate-800" href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
+							<a class="py-2 px-8 bg-slate-800" href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
+							<a class="py-2 px-8 bg-slate-800" href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
+							<a class="py-2 px-8 bg-slate-800 text-gray-400" href="{% url 'logout' %}">Log Out</a>
+                        </div>
+
                     {% endif %}
+
+                {% elif request.path != '/users/login/' %}
+
+					<p>You are not logged in.</p>
+					<a href="{% url 'login' %}">Log In</a>
+
                 {% endif %}
 
                 {% block content %}
