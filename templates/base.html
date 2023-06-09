@@ -11,6 +11,24 @@
     <body class="text-white bg-slate-700">
         <main>
             <div class="grid grid-cols-12">
+                {% if user.is_authenticated %}
+
+                    Hi {{ user.username }}!
+
+                    <!--MANAGER HEADER-->
+                    {% if user.role == "manager" %}
+
+                        <!--MENUBAR-->
+                        <div class="col-span-12 flex justify-evenly pt-8 pb-8">
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'gateway' %}">Home</a>
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'm-manage-some-users' %}">Manage Some Users</a>
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
+                            <a class="py-2 px-8 bg-slate-800" href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
                 {% block content %}
                 {% endblock content %}
             </div>

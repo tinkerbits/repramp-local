@@ -8,7 +8,6 @@
 
     {% if user.is_authenticated %}
 
-        Hi {{ user.username }}!
 
         {% if user.role == "sender" %}
 
@@ -77,14 +76,6 @@
 
         {% elif user.role == "manager" %}
 
-            <!--MENUBAR-->
- 
-            <div class="col-span-12 flex justify-evenly pt-8 pb-8">
-            <a href="{% url 'm-manage-some-users' %}">Manage Some Users</a>
-            <a href="{% url 'm-manage-email-addresses' %}">Manage Email Addresses</a>
-            <a href="{% url 'm-calculate-warmupper-email-engagement' %}">Calculate Warmupper Email Engagement</a>
-            <a href="{% url 'm-warmupper-email-engagement-and-renumeration' %}">Warmupper Email Engagement And Renumeration</a>
-            </div>
             <!--STATS-->
             <div class="col-span-12 pb-8">
                 <canvas id="stats_chart" height="60px"></canvas>
@@ -150,11 +141,11 @@
                   <form class="grid col-span-8 grid-cols-8 pb-5" method="post">
                     {% csrf_token %}
                     <div class="px-10 col-span-2">
-                      <button class="actionacceptbutton {% if action.status == 'accepted' %}bg-green-400{% endif %}" data-action-id="{{action.id}}">Accept</button>
-                      <button class="actionrejectbutton {% if action.status == 'rejected' %}bg-red-400{% endif %}" data-action-id="{{action.id}}">Reject</button>
+                      <button class="actionacceptbutton p-1 border-2 {% if action.status == 'accepted' %}bg-green-400{% endif %}" data-action-id="{{action.id}}">Accept</button>&nbsp;
+                      <button class="actionrejectbutton p-1 border-2 {% if action.status == 'rejected' %}bg-red-400{% endif %}" data-action-id="{{action.id}}">Reject</button>
                     </div>
-                    <div class="px-10 col-span-4"><input class="commentfield border-solid border-2 w-full" type="text" placeholder="comment" name="commentfield" data-action-id="{{action.id}}" value="{{action.comment}}"></div>
-                    <div class="px-10 col-span-2"><button type="submit" class="commentsubmitbutton" data-action-id="{{action.id}}">Submit</button></div>
+                    <div class="px-10 col-span-4"><input class="commentfield border-solid border-2 p-1 bg-slate-600 w-full" type="text" name="commentfield" data-action-id="{{action.id}}" {%if action.comment%} value="{{action.comment}}" {% endif %}></div>
+                    <div class="px-10 col-span-2"><button type="submit" class="commentsubmitbutton p-1 border-2" data-action-id="{{action.id}}">Submit</button></div>
                   </form>
             {% endfor %}
           </div>
