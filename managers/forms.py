@@ -19,6 +19,10 @@ class ManageSomeUsersForm(forms.ModelForm):
             'privilege': forms.Select(choices=CustomUser.PRIVILEGE_CHOICES),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600'
 
 class RegisterNewUserForm(CustomUserCreationForm):
     def __init__(self, *args, **kwargs):

@@ -10,9 +10,43 @@
 {% block content %}
 
 
-<a href="{% url 'm-register-new-user' %}">Register New User</a>
 
+<form class="grid grid-cols-7 col-span-12" method="post">
+    {% csrf_token %}
+    <div class="col-span-1 p-3 font-bold">username</div>
+    <div class="col-span-1 p-3 font-bold">email</div>
+    <div class="col-span-1 p-3 font-bold">firstname</div>
+    <div class="col-span-1 p-3 font-bold">lastname</div>
+    <div class="col-span-1 p-3 font-bold">role</div>
+    <div class="col-span-1 p-3 font-bold">privilege</div>
+    <div class="col-span-1 p-3 font-bold"></div>
+    {% for user_form in user_forms %}
+        {% for field in user_form %}       
+            {% comment %}ONLY RENDER PRIVILEGE FIELD IF USER.ROLE == SENDER{% endcomment %}
+            {% if user_form.instance.role == "sender"%}
+                <div class="col-span-1 p-3">{% add_attr field "data-user-id" user_form.instance.id %}</div>
+            {% else %}
+                {% if "id_privilege" in field.id_for_label %}
+                    <div class="col-span-1 p-3 invisible" data-user-id="{{user_form.instance.id}}">{% add_attr field "data-user-id" user_form.instance.id %}</div>
+                {% else %}
+                    <div class="col-span-1 p-3">{% add_attr field "data-user-id" user_form.instance.id %}</div>
+                {% endif %}
+            {% endif %}
+            {% for error in field.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
 
+        <div class="col-span-1 p-3"><button type="submit" class="someuserdatasubmitbutton p-1 border-2 bg-slate-800" data-user-id={{user_form.instance.id}}>Submit</button></div>
+
+    {% endfor %}
+</form>
+
+<div class="grid grid-cols-7 col-span-12">
+    <div class="col-span-1 p-3"><a href="{% url 'm-register-new-user' %}" class="border-dotted border-2 bg-slate-600 p-1">Register New User</a>
+</div>
+
+<!--
 <form method="post">
     {% csrf_token %}
     <ul>
@@ -42,7 +76,7 @@
 
     </ul>
 </form>
-
+-->
 
 {% endblock content %}
 

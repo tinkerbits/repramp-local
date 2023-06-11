@@ -137,7 +137,7 @@
                         <button class="actionrejectbutton p-1 border-2 {% if action.status == 'rejected' %}bg-red-400{% endif %}" data-action-id="{{action.id}}">Reject</button>
                       </div>
                       <div class="px-10 col-span-4"><input class="commentfield border-solid border-2 p-1 bg-slate-600 w-full" type="text" name="commentfield" data-action-id="{{action.id}}" {%if action.comment%} value="{{action.comment}}" {% endif %}></div>
-                      <div class="px-10 col-span-2"><button type="submit" class="commentsubmitbutton p-1 border-2" data-action-id="{{action.id}}">Submit</button></div>
+                      <div class="px-10 col-span-2"><button type="submit" class="commentsubmitbutton p-1 border-2 bg-slate-800" data-action-id="{{action.id}}">Submit</button></div>
                     </form>
               {% endfor %}
             </div>
