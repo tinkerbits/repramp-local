@@ -554,20 +554,24 @@ video {
   grid-column: span 8 / span 8;
 }
 
-.col-start-2 {
-  grid-column-start: 2;
+.col-span-6 {
+  grid-column: span 6 / span 6;
 }
 
-.col-start-5 {
-  grid-column-start: 5;
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+
+.col-start-2 {
+  grid-column-start: 2;
 }
 
 .col-start-3 {
   grid-column-start: 3;
 }
 
-.col-start-1 {
-  grid-column-start: 1;
+.col-start-5 {
+  grid-column-start: 5;
 }
 
 .block {
@@ -649,6 +653,11 @@ video {
 .bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 
 .p-1 {

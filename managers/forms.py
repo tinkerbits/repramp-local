@@ -32,16 +32,27 @@ class RegisterNewUserForm(CustomUserCreationForm):
             ('warmupper', 'warmupper'),
         ]
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 w-full'
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 text-center w-full'
             field.widget.attrs['placeholder'] = field.label
 
 class AddEmailAddressForm(forms.ModelForm):
     class Meta:
         model = EmailAddress
         fields = ['email', 'mailbox_provider']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 text-center w-full'
 
 class UploadEmailAddressesForm(forms.Form):
     file = forms.FileField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 text-center w-full'
+            field.widget.attrs['initial'] = ''
 
 class UploadEngagementDataForm(forms.ModelForm):
 

@@ -4,22 +4,38 @@
 
 {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Submit</button>
-</form>
 
+<div class="col-span-6 grid grid-cols-7">
+    <div class="col-start-2 col-span-5 grid-cols-5 p-3 bg-slate-600">
+        <div class="col-span-3 col-start-2 text-center font-bold">Add A New Email Address</div>
+        <form class="col-span-3 col-start-2 grid grid-cols-3" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="col-span-1 p-3">{{field.label}}</div>
+                <div class="col-span-2 p-3">{{field}}</div>
+            {% endfor %}
+            <div class="col-span-3 p-3">
+                <button class="p-1 border-2 bg-slate-800 w-full" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{upload_email_form.as_p}}
-    <button type="submit">Submit</button>
-</form>
-
-
-
-
+<div class="col-span-6 grid grid-cols-7">
+    <div class="col-start-2 col-span-5 grid-cols-5 p-3 bg-slate-600">
+        <div class="col-span-3 col-start-2 text-center font-bold">Upload New Email Addresses</div>
+        <form class="col-span-3 col-start-2 grid grid-cols-3" method="post">
+            {% csrf_token %}
+            {% for field in upload_email_form %}
+                <div class="col-span-1 p-3">{{field.label}}</div>
+                <div class="col-span-2 p-3">{{field}}</div>
+            {% endfor %}
+            <div class="col-span-3 p-3">
+                <button class="p-1 border-2 bg-slate-800 w-full" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 {% endblock content %}

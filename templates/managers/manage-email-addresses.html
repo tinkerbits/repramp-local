@@ -22,7 +22,7 @@
             </div>
 
             <div class="col-start-3 col-span-1 p-3">
-                <select class="bg-slate-600 p-1 w-full" name="warmupper">
+                <select class="bg-slate-600 p-1 border-solid border-2 text-center w-full" name="warmupper">
                     <option value=""></option>
                     {% for warmupper in warmupper_list %}
                         <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}" {% if email.id|checkassignment:warmupper.id %}selected{% endif %}>{{ warmupper.username }}</option>
