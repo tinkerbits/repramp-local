@@ -52,7 +52,6 @@ class UploadEmailAddressesForm(forms.Form):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 text-center w-full'
-            field.widget.attrs['initial'] = ''
 
 class UploadEngagementDataForm(forms.ModelForm):
 
@@ -61,4 +60,9 @@ class UploadEngagementDataForm(forms.ModelForm):
     class Meta:
         model = EmailAddressEngagement
         fields = ['data_type', 'file']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 text-center w-full'
 
