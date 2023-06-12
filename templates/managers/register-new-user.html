@@ -4,11 +4,17 @@
 
 {% block content %}
 
-
-<form method="post">
+<div class="col-start-5 col-span-4 p-3 text-center font-bold">Register A New User</div>
+<form class="grid grid-cols-3 col-span-12" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
+    {% for field in form %}
+        <div class="col-start-2 grid-span-1 grid grid-cols-4">
+            <div class="col-span-1 p-3">{{field.label}}</div>
+            <div class="col-start-2 col-span-3 p-3">{{field}}</div>
+        </div>
+    {% endfor %}
+
+    <div class="col-start-2 col-span-1 p-3"><button class="p-1 border-2 bg-slate-800 w-full" type="submit">Register</button></div>
 </form>
 
 

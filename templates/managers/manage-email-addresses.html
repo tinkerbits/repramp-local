@@ -7,25 +7,34 @@
 
 {% block content %}
 
-<a href="{% url 'm-add-new-email-addresses' %}">Add New Email Addresses</a>
+<div class="col-span-12 p-3">
+    <a href="{% url 'm-add-new-email-addresses' %}" class="border-dotted border-2 bg-slate-600 p-1">Add New Email Addresses</a>
+</div>
 
-
-<form method="post">
+<div class="col-start-5 col-span-4 p-3 text-center font-bold">Manage Email Addresses</div>
+<form class="grid grid-cols-4 col-span-12" method="post">
     {% csrf_token %}
     {% for email in object_list%}
         {% if email.is_active == True %}
-            {{email}}
-            --> 
-            <select name="warmupper">
-                <option value=""></option>
-                {% for warmupper in warmupper_list %}
-                    <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}" {% if email.id|checkassignment:warmupper.id %}selected{% endif %}>{{ warmupper.username }}</option>
-                {% endfor %}
-            </select>
-            <br>
+
+            <div class="col-start-2 col-span-1 p-3">
+                {{email}}
+            </div>
+
+            <div class="col-start-3 col-span-1 p-3">
+                <select class="bg-slate-600 p-1 w-full" name="warmupper">
+                    <option value=""></option>
+                    {% for warmupper in warmupper_list %}
+                        <option data-email-id="{{email.id}}" data-warmupper-id="{{warmupper.id}}" {% if email.id|checkassignment:warmupper.id %}selected{% endif %}>{{ warmupper.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
         {% endif %}
     {% endfor %}
-    <button type="submit" id="submitbutton">Save</button>
+    <div class="col-start-2 col-span-2 p-3">
+        <button class="p-1 border-2 bg-slate-800 w-full" type="submit" id="submitbutton">Save</button>
+    </div>
 </form>
 
 {% endblock content %}
