@@ -22,9 +22,12 @@
         {% elif email_list_request.status == "rejected" %}
             <div class="px-10 pb-5 col-span-1 text-center"><span class="p-1 border-2 bg-red-400">{{ email_list_request.status }}</span></div>
             <div class="px-10 pb-5 col-span-1 text-center"></div>
+        {% elif email_list_request.status == None %}
+            <div class="px-10 pb-5 col-span-1 text-center"><span class="p-1 border-2">pending approval</span></div>
+            <div class="px-10 pb-5 col-span-1 text-center"></div>
         {% else %}
-            <div class="px-10 pb-5 col-span-1">{{ email_list_request.status }}</div>
-            <div class="px-10 pb-5 col-span-1"></div>
+            <div class="px-10 pb-5 col-span-1 text-center">{{ email_list_request.status }}</div>
+            <div class="px-10 pb-5 col-span-1 text-center"></div>
         {% endif %}
 
     {% endfor %}

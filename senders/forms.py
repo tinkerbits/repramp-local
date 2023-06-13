@@ -13,6 +13,8 @@ class EmailListCreationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.email_counts = get_email_address_count()
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'border-solid border-2 p-1 bg-slate-600 w-full'
 
     def clean(self):
         cleaned_data = super().clean()
