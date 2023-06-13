@@ -99,6 +99,7 @@ class CalculateWarmupperEmailEngagementView(FormView):
     template_name = 'managers/calculate-warmupper-email-engagement.html'
     form_class = UploadEngagementDataForm
     success_url = reverse_lazy('gateway')
+    
 
     def post(self, request, *args, **kwargs):
         
