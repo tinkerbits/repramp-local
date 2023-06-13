@@ -24,7 +24,7 @@
 <div class="col-span-6 grid grid-cols-7">
     <div class="col-start-2 col-span-5 grid-cols-5 p-3 bg-slate-600">
         <div class="col-span-3 col-start-2 text-center font-bold">Upload New Email Addresses</div>
-        <form class="col-span-3 col-start-2 grid grid-cols-3" method="post">
+        <form class="col-span-3 col-start-2 grid grid-cols-3" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in upload_email_form %}
                 <div class="col-span-1 p-3">{{field.label}}</div>
