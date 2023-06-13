@@ -14,7 +14,7 @@ from senders.models import EmailListAssignment
 
 
 class CreateNewEmailListView(CreateView):
-    template_name = 'senders/create-new-email-list.html'
+    template_name = 'senders/create-new-email-list-request.html'
     form_class = EmailListCreationForm
     success_url = reverse_lazy('gateway')
 
