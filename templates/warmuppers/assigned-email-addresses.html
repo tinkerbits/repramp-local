@@ -4,15 +4,19 @@
 
 {% block content %}
 
-<ul>
-    {% for email_address_assignment in this_users_email_address_assignments %}
-        <li>{{email_address_assignment}}</li>
-    {% endfor %}
-</ul>
 
-Searchstring:
-<br>
-{{senderaddresses}}
+
+<div class="col-start-2 col-end-12 text-center ">
+    <span class="p-1 border-2 bg-slate-600 truncate block">{{senderaddresses}}</span>
+</div>
+<br><br>
+<div class="col-start-6 col-end-7 text-center">
+    {% for email_address_assignment in this_users_email_address_assignments %}
+        {{email_address_assignment}}
+    {% endfor %}
+</div>
+
+
 
 
 {% endblock content %}
