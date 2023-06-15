@@ -3,11 +3,14 @@ from dateutil.relativedelta import relativedelta
 
 from django.views.generic import TemplateView
 from django.db.models import Sum, Case, When
-
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
 from warmuppers.models import EmailAddressEngagement
 from senders.models import EmailListRequest
 from managers.models import ManagerActions
+
+from .forms import CustomLoginForm
 
 class GatewayView(TemplateView):
     template_name = 'gateway.html'
@@ -64,3 +67,8 @@ class GatewayView(TemplateView):
         else:
             return super().get(request, *args, **kwargs)
 
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    form_class = CustomLoginForm
+    success_url = reverse_lazy('gateway')
